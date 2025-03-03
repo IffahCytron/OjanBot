@@ -1,0 +1,80 @@
+#include "CytronMotorDriver.h"
+
+
+// Configure the motor driver.
+CytronMD f1(PWM_DIR, 5, 4);   // Motor 1: Pin 4 (PWM), Pin 5 (DIR)
+CytronMD f2(PWM_DIR, 6, 7);   // Motor 2: Pin 6 (PWM), Pin 7 (DIR)
+
+
+const float cali_L = 1.25;
+const float cali_R = 1.25;
+
+
+void setup() {}
+void robot_movement(int sL, int sR) {
+  f1.setSpeed(sL * cali_L);   // Left motor forward
+  f2.setSpeed(sR * cali_R);  // Right motor forward
+}
+
+
+void loop() {
+  // Move Forward
+  robot_movement(128, -128);   // Left & Right
+  delay(1000);
+
+
+  // Stop briefly
+  robot_movement(0, 0);   // Stop
+  delay(500);
+
+
+  // Move Backward
+  robot_movement(-128, 128);   // Left & Right
+  delay(1000);
+
+
+  // Stop briefly
+  robot_movement(0, 0);   // Stop
+  delay(500);
+
+
+  // Turn Left
+  robot_movement(-128, -128);   // Left & Right
+  delay(400);
+
+
+  // Stop briefly
+  robot_movement(0, 0);   // Stop
+  delay(400);
+
+
+  // Move back to original position (Turn Right)
+  robot_movement(128, 128);  
+  delay(400);
+
+
+  // Stop briefly
+  robot_movement(0, 0);   // Stop
+  delay(500);
+
+
+  // Turn Right
+  robot_movement(128, 128);   // Left & Right
+  delay(400);
+
+
+  // Stop briefly
+  robot_movement(0, 0);   // Stop
+  delay(400);
+
+
+  // Move back to original position (Turn Right)
+  robot_movement(-128, -128);  
+  delay(400);
+
+
+  // Stop briefly
+  robot_movement(0, 0);   // Stop
+  delay(5000);
+}
+
